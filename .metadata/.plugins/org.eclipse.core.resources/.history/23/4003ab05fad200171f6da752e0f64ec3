@@ -1,0 +1,7 @@
+package bcit.comp2526.DoubleLL;
+
+public class CouldNotAddException extends Exception {
+    public MyException(String message) {
+        super(message);
+    }
+}

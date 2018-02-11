@@ -1,0 +1,20 @@
+package tester;
+
+public class tester {
+
+    public static void main(String[] args) {
+        int counter = 0;
+        int n = 5;
+        for (int i = 3; i <= (n + 5); i++) {
+            counter = counter + 10;
+            for (int j = i + 1; j <= 5; j++) {
+
+                for (int k = j + 1; k <= 5; k++) {
+
+                }
+            }
+        }
+        System.out.println(counter);
+    }
+
+}

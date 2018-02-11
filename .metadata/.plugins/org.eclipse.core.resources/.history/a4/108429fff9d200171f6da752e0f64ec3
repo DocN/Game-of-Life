@@ -1,0 +1,5 @@
+package bcit.comp2526.DoubleLL;
+
+public class CouldNotAddException {
+
+}

@@ -1,0 +1,41 @@
+package bcit.comp2526.A2;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * LoadButtonListener implements a listener for LoadButton.
+ * 
+ * @author DrN
+ * @version 1.00
+ */
+public class LoadButtonListener implements ActionListener {
+    private World theWorld;
+    private WorldSerialWriteReader worldReadWriter;
+
+    /**
+     * LoadButton Constructor.
+     * 
+     * @param theWorld
+     *            - theWorld we're dealing with.
+     * @param worldReadWriter
+     *            read/writer for world object.
+     */
+    public LoadButtonListener(World theWorld,
+            WorldSerialWriteReader worldReadWriter) {
+        this.theWorld = theWorld;
+        this.worldReadWriter = worldReadWriter;
+    }
+
+    /**
+     * actionPerformed for handling actions from listener.
+     * 
+     * @param a
+     *            ActionEvent that occurred.
+     */
+    public void actionPerformed(ActionEvent a) {
+        World loadedWorld = (World) this.worldReadWriter.readObject();
+        this.theWorld.loadWorld(loadedWorld);
+        System.out.println("World state loaded!");
+    }
+}

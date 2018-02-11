@@ -1,0 +1,44 @@
+package bcit.comp2526.DoubleLL;
+
+public class tester {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        DoubleLL<Integer> test = new DoubleLL<Integer>(1, null, null);
+        try {
+            test.addToFront(2);
+            test.addToFront(3);
+            test.addToFront(5);
+        } catch (CouldNotAddException e) {
+            System.out.println(e.getMessage());
+        }
+
+        test.printList();
+        try {
+            test.removeFromFront();
+        } catch (CouldNotRemoveException e) {
+            System.out.println(e.getMessage());
+        }
+        test.printList();
+        try {
+            test.addToEnd(100);
+        } catch (CouldNotAddException e) {
+            System.out.println(e.getMessage());
+        }
+
+        test.printList();
+        try {
+            test.removeFromEnd();
+            test.removeFromEnd();
+        } catch (CouldNotRemoveException e) {
+            System.out.println(e.getMessage());
+        }
+        //test.printList();
+        
+        SerialWriteReader testSerial = new SerialWriteReader();
+        testSerial.writeObject(test);
+        DoubleLL<Integer> test2 = testSerial.readObject();
+        test2.printList();
+    }
+
+}

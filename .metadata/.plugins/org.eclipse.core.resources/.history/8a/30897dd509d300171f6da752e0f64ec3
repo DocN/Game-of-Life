@@ -1,0 +1,71 @@
+package bcit.comp2526.DoubleLL;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+/**
+ * SerialWriteReader reads/writes objects to data files with serialization.
+ * 
+ * @author Ryan Chau A00949065
+ * @version 1.00
+ */
+public class SerialWriteReader {
+
+    /**
+     * writeObject - writes serializes an object and writes it to a file.
+     * 
+     * @param writeObject
+     *            - object to be serialized and written to data file.
+     */
+    public void writeObject(Object writeObject) {
+        try {
+            FileOutputStream f = new FileOutputStream(new File("doubleLL.dat"));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+            // Write objects to file
+            o.writeObject(writeObject);
+
+            o.close();
+            f.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        }
+    }
+
+    /**
+     * readObject reads a serialized file and turns it into an object/returns
+     * it.
+     * 
+     * @return returns an object stored in a data file.
+     */
+    public DoubleLL<Integer> readObject() {
+        try {
+            FileInputStream fi = new FileInputStream(new File("doubleLL.dat"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+            @SuppressWarnings("unchecked")
+            DoubleLL<Integer> returnList;
+            if(oi.readobject() != null && oi.readObject().getClass() == returnList.getClass())
+            returnList = (DoubleLL<Integer>) oi.readObject();
+            oi.close();
+            fi.close();
+            return returnList;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

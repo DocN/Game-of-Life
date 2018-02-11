@@ -1,0 +1,88 @@
+package tester;
+
+class node {
+    int data;
+    node next;
+
+    public node(int data) {
+        this.data = data;
+    }
+}
+
+public class tester {
+    public static int sum(int upperBound) {
+        int sum = 0;
+        for (int i = 0; i <= upperBound; i++) {
+            sum = sum + i;
+        }
+        return sum;
+    }
+
+    public static int recursiveSum(int bound) {
+        if (bound == 0) {
+            return 0;
+        } else {
+            return bound + recursiveSum((bound - 1));
+        }
+
+    }
+
+    public static void drawTriangle(int height) {
+        if (height == 0) {
+            return;
+        }
+        for (int i = 0; i < height; i++) {
+            System.out.print("*");
+        }
+        System.out.println("");
+        drawTriangle(height - 1);
+    }
+
+    public static void backString(String test) {
+        if (test.isEmpty()) {
+            return;
+        }
+        int length = test.length() - 1;
+        System.out.print(test.charAt(length));
+        backString(test.substring(0, (length)));
+    }
+
+    public static void insertAccending(int newData, node head) {
+        node current = head;
+        node prev = head;
+
+        while (current.data < newData) {
+            if (current.next == null) {
+                break;
+            }
+            prev = current;
+            current = current.next;
+        }
+        node newNode = new node(newData);
+        prev.next = newNode;
+        newNode.next = current;
+
+    }
+    public static void printList(node head) {
+        node current = head;
+        while(current != null) {
+            System.out.println(current.data);
+            current = current.next;
+        }
+    }
+    public static void main(String[] args) {
+        // System.out.println(sum(10));
+        // System.out.println(recursiveSum(10));
+        // drawTriangle(5);
+        // backString("huehue");
+
+        node n1 = new node(1);
+        node n2 = new node(2);
+        n1.next = n2;
+
+        node n3 = new node(4);
+        n2.next = n3;
+        insertAccending(3, n1);
+
+    }
+}

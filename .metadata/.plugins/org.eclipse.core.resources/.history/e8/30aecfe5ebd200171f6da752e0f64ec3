@@ -1,0 +1,23 @@
+package bcit.comp2526.dLinkList;
+
+import bcit.comp2526.dLinkList.dLinkList;
+
+public class tester {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        dLinkList<Integer> test = new dLinkList<Integer>(1, null, null);
+        test.addToFront(2);
+        test.addToFront(3);
+        test.addToFront(4);
+        test.printList();
+        test.removeFromFront();
+        test.printList();
+        test.addToEnd(100);
+        test.printList();
+        test.removeFromEnd();
+        test.removeFromEnd();
+        test.printList();
+    }
+
+}

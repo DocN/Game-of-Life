@@ -1,0 +1,149 @@
+package bcit.comp2526.dLinkList;
+
+import java.util.Iterator;
+
+/**
+ * dLinkList double linklist for generic type.
+ * 
+ * @author Ryan Chau A00949065
+ * @version 1.00
+ * @param <E>
+ *            Generic data
+ */
+public class dLinkList<E> implements Iterable<dLinkList<E>> {
+    @SuppressWarnings("rawtypes")
+    private dLinkList<E> head;
+    private dLinkList<E> next;
+    private dLinkList<E> prev;
+    private E data;
+
+    /**
+     * dLinkList constructor.
+     * 
+     * @param data
+     *            generic data
+     * @param next
+     *            next node
+     * @param prev
+     *            prev node
+     */
+    public dLinkList(E data, dLinkList<E> next, dLinkList<E> prev) {
+        this.next = next;
+        this.prev = prev;
+        this.data = data;
+        if (this.head == null) {
+            this.head = this;
+        }
+    }
+
+    /**
+     * addToFront adds generic data to linkList.
+     * 
+     * @param newData
+     *            generic data
+     */
+    public void addToFront(E newData) {
+        // create a node
+        dLinkList<E> newNode = new dLinkList<E>(newData, null, null);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        dLinkList<E> currentHead = head;
+        currentHead.prev = newNode;
+        newNode.next = currentHead;
+        head = newNode;
+    }
+
+    /**
+     * removeFromFront removes the node at the front of the list.
+     */
+    public void removeFromFront() {
+        head = head.next;
+        head.prev = null;
+    }
+
+    /**
+     * addtoEnd adds generic data node to end of list.
+     * 
+     * @param newData
+     *            generic data
+     */
+    public void addToEnd(E newData) {
+        dLinkList<E> newNode = new dLinkList<E>(newData, null, null);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        dLinkList<E> currentNode = head;
+        // go to the back of the linklist
+        while (currentNode.next != null) {
+            currentNode = currentNode.next;
+        }
+        currentNode.next = newNode;
+        newNode.prev = currentNode;
+
+    }
+
+    /**
+     * removeFromEnd removes the node at the end of the list.
+     */
+    public void removeFromEnd() {
+        dLinkList<E> currentNode = head;
+        if (currentNode != null) {
+            while (currentNode.next != null) {
+                currentNode = currentNode.next;
+            }
+            currentNode.prev.next = null;
+        }
+    }
+
+    /**
+     * printList goes through the linkList and prints all data nodes.
+     */
+    public void printList() {
+        dLinkList<E> nHead = head;
+        for (dLinkList<E> current : nHead) {
+            System.out.println(current.getData());
+        }
+        System.out.println("");
+    }
+
+    /**
+     * getData returns the data in the node.
+     * 
+     * @return E generic data
+     */
+    public E getData() {
+        return this.data;
+    }
+
+    @Override
+    public Iterator<dLinkList<E>> iterator() {
+        Iterator<dLinkList<E>> it = new Iterator<dLinkList<E>>() {
+            private dLinkList<E> current = head;
+            private boolean firstCheck;
+
+            @Override
+            public boolean hasNext() {
+                return current.next != null;
+            }
+
+            @Override
+            public dLinkList<E> next() {
+                if (!firstCheck) {
+                    firstCheck = true;
+                    return head;
+                }
+                current = current.next;
+                return current;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+    }
+}

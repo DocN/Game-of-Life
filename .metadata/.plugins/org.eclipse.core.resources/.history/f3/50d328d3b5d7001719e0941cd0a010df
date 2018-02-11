@@ -1,0 +1,36 @@
+package bcit.comp2526.DoubleLL;
+
+/**
+ * tester for DoubleLL.
+ * 
+ * @author DrN
+ * @version 1.00
+ */
+public class tester {
+
+    /**
+     * main tester for doubleLinkList.
+     * 
+     * @param args
+     *            main args.
+     * @throws CouldNotAddException
+     * @throws CouldNotRemoveException
+     */
+    public static void main(String[] args)
+            throws CouldNotAddException, CouldNotRemoveException {
+        DoubleLinkedList<Integer> test = new DoubleLinkedList<Integer>();
+        test.addToFront(1);
+        test.addToFront(100);
+        test.removeFromFront();
+        test.addToFront(2);
+        test.removeFromFront();
+        test.addToEnd(50);
+        test.addToFront(2);
+        test.printList();
+        test.removeFromEnd();
+        test.removeFromEnd();
+
+        test.printList();
+    }
+
+}

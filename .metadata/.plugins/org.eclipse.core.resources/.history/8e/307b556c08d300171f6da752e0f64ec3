@@ -1,0 +1,24 @@
+package bcit.comp2526.DoubleLL;
+
+/**
+ * CouldNotAddException thrown when unable to add to linklist
+ * 
+ * @author Ryan Chau A00949065
+ * @version 1.00
+ */
+public class CouldNotAddException extends Exception {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * CouldNotAddException - Constructor for creating exception.
+     * 
+     * @param message
+     *            error message.
+     */
+    public CouldNotAddException(String message) {
+        super(message);
+    }
+}

@@ -1,0 +1,12 @@
+package bcit.comp2526.DoubleLL;
+
+public class CouldNotAddException extends Exception {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public CouldNotAddException(String message) {
+        super(message);
+    }
+}

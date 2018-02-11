@@ -1,0 +1,215 @@
+package bcit.comp2526.DoubleLL;
+
+import java.io.Serializable;
+import java.util.Iterator;
+
+/**
+ * DoubleLL double linklist for generic type.
+ * 
+ * @author Ryan Chau A00949065
+ * @version 1.00
+ * @param <E>
+ *            Generic data
+ */
+public class DoubleLinkedList<E>
+        implements Iterable<DoubleLinkedList<E>>, Serializable {
+    private static final long serialVersionUID = 1L;
+    private DoubleLinkedList<E> head;
+    private DoubleLinkedList<E> tail;
+    private DoubleLinkedList<E> next;
+    private DoubleLinkedList<E> prev;
+    private E data;
+
+  
+    /**
+     * DoubleLL default constructor for empty list.
+     */
+    public DoubleLinkedList() {
+        this.next = null;
+        this.prev = null;
+        this.data = null;
+        this.head = null;
+        this.tail = null;
+    }
+
+    /**
+     * DoubleLL constructor.
+     * 
+     * @param data
+     *            generic data
+     * @param next
+     *            next node
+     * @param prev
+     *            prev node
+     */
+    public DoubleLinkedList(E data, DoubleLinkedList<E> next,
+            DoubleLinkedList<E> prev) {
+        this.next = next;
+        this.prev = prev;
+        this.data = data;
+        if (this.head == null) {
+            this.head = this;
+        }
+        this.tail = this.head;
+    }
+
+    /**
+     * addToFront adds generic data to linkList.
+     * 
+     * @param newData
+     *            generic data
+     * @throws CouldNotAddException
+     *             - exception when we're not able to add new data to list.
+     */
+    public void addToFront(E newData) throws CouldNotAddException {
+        // create a node
+        DoubleLinkedList<E> newNode = new DoubleLinkedList<E>(newData, null, null);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        DoubleLinkedList<E> currentHead = head;
+        currentHead.prev = newNode;
+        newNode.next = currentHead;
+        head = newNode;
+
+        if (head == null) {
+            throw new CouldNotAddException(
+                    "Error unable to add data to linklist");
+        }
+    }
+
+    /**
+     * removeFromFront removes the node at the front of the list.
+     * 
+     * @throws CouldNotRemoveException
+     *             - no data to remove throw error.
+     */
+    public void removeFromFront() throws CouldNotRemoveException {
+        if (head == null) {
+            throw new CouldNotRemoveException(
+                    "Error no node to remove from list");
+        }
+        head = head.next;
+        head.prev = null;
+    }
+
+    /**
+     * addtoEnd adds generic data node to end of list.
+     * 
+     * @param newData
+     *            generic data
+     * @throws CouldNotAddException
+     *             - exception thrown when we can't add to the list.
+     */
+    public void addToEnd(E newData) throws CouldNotAddException {
+        DoubleLinkedList<E> newNode = new DoubleLinkedList<E>(newData, null, null);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        // start at the beginning of the list
+        DoubleLinkedList<E> currentNode = this.tail;
+        // make sure we're at the end of the list
+        currentNode.next = newNode;
+        newNode.prev = currentNode;
+        this.tail = newNode;
+
+        if (head == null) {
+            throw new CouldNotAddException(
+                    "Error unable to add data to linklist");
+        }
+    }
+
+    /**
+     * removeFromEnd removes the node at the end of the list.
+     * 
+     * @throws CouldNotRemoveException
+     *             - thrown error when we're not able to remove node from end.
+     */
+    public void removeFromEnd() throws CouldNotRemoveException {
+        DoubleLinkedList<E> currentNode = this.tail;
+        this.tail = currentNode.prev;
+        this.tail.next = null;
+        if (currentNode == null || currentNode.next != null) {
+            throw new CouldNotRemoveException(
+                    "Error could not remove from end of list");
+        }
+    }
+
+    /**
+     * printList goes through the linkList and prints all data nodes.
+     */
+    public void printList() {
+        DoubleLinkedList<E> nHead = head;
+        for (DoubleLinkedList<E> current : nHead) {
+            System.out.println(current.getData());
+        }
+        System.out.println("");
+    }
+
+    /**
+     * getFirst returns the first element in then list.
+     * 
+     * @return the first element
+     */
+    public DoubleLinkedList<E> getFirst() {
+        return this.head;
+    }
+
+    /**
+     * getLast returns the last element in the list.
+     * 
+     * @return node of list.
+     */
+    public DoubleLinkedList<E> getLast() {
+        return this.tail;
+    }
+
+    /**
+     * getHead returns the head of the list.
+     * 
+     * @return the head of the list.
+     */
+    public DoubleLinkedList<E> getHead() {
+        return this.head;
+    }
+
+    /**
+     * getData returns the data in the node.
+     * 
+     * @return E generic data
+     */
+    public E getData() {
+        return this.data;
+    }
+
+    @Override
+    public Iterator<DoubleLinkedList<E>> iterator() {
+        Iterator<DoubleLinkedList<E>> it = new Iterator<DoubleLinkedList<E>>() {
+            private DoubleLinkedList<E> current = head;
+            private boolean firstCheck;
+
+            @Override
+            public boolean hasNext() {
+                return current.next != null;
+            }
+
+            @Override
+            public DoubleLinkedList<E> next() {
+                if (!firstCheck) {
+                    firstCheck = true;
+                    return head;
+                }
+                current = current.next;
+                return current;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+    }
+}

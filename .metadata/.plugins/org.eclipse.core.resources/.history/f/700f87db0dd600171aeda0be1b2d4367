@@ -1,0 +1,43 @@
+package bcit.comp2526.DoubleLL;
+
+/**
+ * tester for DoubleLL.
+ * 
+ * @author DrN
+ * @version 1.00
+ */
+public class tester {
+
+    /**
+     * main tester for doubleLinkList.
+     * 
+     * @param args
+     *            main args.
+     */
+    public static void main(String[] args) {
+        /*
+         * // TODO Auto-generated method stub DoubleLL<Integer> test = new
+         * DoubleLL<Integer>(1, null, null); // magic numbers used in testing
+         * try { test.addToFront(2); test.addToFront(3); test.addToFront(5); }
+         * catch (CouldNotAddException e) { System.out.println(e.getMessage());
+         * }
+         * 
+         * // test.printList(); try { test.removeFromFront(); } catch
+         * (CouldNotRemoveException e) { System.out.println(e.getMessage()); }
+         * // test.printList(); try { test.addToEnd(100); } catch
+         * (CouldNotAddException e) { System.out.println(e.getMessage()); }
+         * 
+         * // test.printList(); try { test.removeFromEnd(); } catch
+         * (CouldNotRemoveException e) { System.out.println(e.getMessage()); }
+         * test.printList();
+         * 
+         * SerialWriteReader testSerial = new SerialWriteReader();
+         * testSerial.writeObject(test); DoubleLL<Integer> test2 =
+         * testSerial.readObject(); test2.printList();
+         */
+        DoubleLL<Integer> test = new DoubleLL<Integer>(5, null, null);
+
+        System.out.println(test.getLast().getData());
+    }
+
+}

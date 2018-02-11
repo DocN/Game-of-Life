@@ -1,0 +1,26 @@
+package bcit.comp2526.DoubleLL;
+
+public class tester {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        DoubleLL<Integer> test = new DoubleLL<Integer>(1, null, null);
+        try {
+            test.addToFront(2);
+            test.addToFront(3);
+            test.addToFront(5);
+        } catch (CouldNotAddException e) {
+            System.out.println("test");
+        }
+
+        test.printList();
+        test.removeFromFront();
+        test.printList();
+        test.addToEnd(100);
+        test.printList();
+        test.removeFromEnd();
+        test.removeFromEnd();
+        test.printList();
+    }
+
+}

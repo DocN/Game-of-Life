@@ -1,0 +1,9 @@
+package bcit.comp2526.DoubleLL;
+
+public class CouldNotRemoveException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    public CouldNotRemoveException(String message) {
+        super(message);
+    }
+}

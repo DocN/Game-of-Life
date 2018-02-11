@@ -1,0 +1,59 @@
+package bcit.comp2526.A2;
+
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+//creating an another class FrameDemo (step 3 )
+class CPFrame extends JFrame implements ActionListener {
+
+    private Container controlPanel;
+    private JButton sButton;
+    private boolean startStop;
+
+    // Creating constructor of FrameDemo class ( step 4 )
+    CPFrame() {
+        controlPanel = this.getContentPane();
+        sButton = new JButton("Start");
+        startStop = true;
+        controlPanel.add(sButton);
+        sButton.addActionListener(this);
+    }
+
+    // actionPerformed() method ( step 10 )
+    public void actionPerformed(ActionEvent a) {
+        if (startStop) {
+            sButton.setText("Stop");
+            startStop = false;
+        } else {
+            sButton.setText("Start");
+            startStop = true;
+        }
+    }
+}
+
+class ControlPanel {
+    private static int waitTime = 200;
+    private timer;
+    public ControlPanel(World theWorld) {
+        // Creating object of FrameDemo class ( Step 5 )
+        CPFrame f = new CPFrame();
+        f.setTitle("click Event ");
+        f.setVisible(true);
+        f.setBounds(100, 100, 100, 100);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                theWorld.takeTurn();
+            }
+        }, 0, waitTime);
+    }
+}

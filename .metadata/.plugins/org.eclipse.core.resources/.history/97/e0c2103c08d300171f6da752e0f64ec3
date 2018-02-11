@@ -1,0 +1,16 @@
+package bcit.comp2526.DoubleLL;
+
+/**
+ * @author Ryan Chau A00949065
+ * @version 1.00
+ */
+public class CouldNotAddException extends Exception {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public CouldNotAddException(String message) {
+        super(message);
+    }
+}

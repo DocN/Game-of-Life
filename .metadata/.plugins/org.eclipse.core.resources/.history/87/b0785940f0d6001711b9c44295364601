@@ -1,0 +1,221 @@
+package bcit.comp2526.DoubleLL;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Random;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+/**
+ * DoubleLinkedListTest.
+ *
+ * @author BCIT
+ * @version 2017
+ */
+class DoubleLinkedListTest {
+
+    private DoubleLinkedList<Integer> testObject;
+
+    /**
+     * Instantiates a fresh DoubleLinkedList for each unit test.
+     * 
+     * @throws java.lang.Exception
+     */
+    @BeforeEach
+    void setUp() throws Exception {
+        testObject = new DoubleLinkedList<>();
+    }
+
+    /**
+     * A new empty list has a method called size() that returns an int equal to
+     * zero, and accessors for first and last element called getFirst() and
+     * getLast() respectively that return null.
+     */
+    @Test
+    @DisplayName("New empty list has size zero, contains nothing")
+    void testSizeEmptyList() {
+        assertEquals(0, testObject.size());
+        assertNull(testObject.getFirst());
+        assertNull(testObject.getLast());
+    }
+
+    /**
+     * A DoubleLinkedList must implement Iterable.
+     */
+    @Test
+    @DisplayName("DoubleLinkedList must implement Iterable")
+    void testIsIterable() {
+        assertTrue(testObject instanceof Iterable);
+
+    }
+
+    /**
+     * A DoubleLinkedList must implement Serializable.
+     */
+    @Test
+    @DisplayName("DoubleLinkedList must implement Serializable")
+    void testDoubleLinkedListIsSerializable() {
+        assertTrue(testObject instanceof Serializable);
+
+    }
+
+    /**
+     * A Node must implement Serializable.
+     */
+    @Test
+    @DisplayName("DoubleLinkedList must implement Serializable")
+    void testNodeIsSerializable() {
+        Node<String> node = new Node<>("Test");
+        assertTrue(node instanceof Serializable);
+
+    }
+
+    /**
+     * When adding a null element to a list, the list should throw a
+     * CouldNotAddException. We can't add a null to the linked list.
+     */
+    @Test
+    @DisplayName("Adding a null throws CouldNotAddException")
+    void testAddToFrontNull() {
+        assertThrows(CouldNotAddException.class, () -> {
+            testObject.addToFront(null);
+        });
+    }
+
+    /**
+     * After adding a non-null element to the front of a new empty list, the new
+     * size should be one, and the list's head and tail should both point to the
+     * new element.
+     * 
+     * @throws CouldNotAddException
+     */
+    @Test
+    @DisplayName("Add non-null element to front of empty list")
+    void testAddToFrontOneElement() throws CouldNotAddException {
+        final int testValue = 22;
+        testObject.addToFront(testValue);
+        assertEquals(1, testObject.size());
+        assertNotNull(testObject.getFirst());
+        assertNotNull(testObject.getLast());
+        assertEquals(testObject.getFirst(), testObject.getLast());
+    }
+
+    /**
+     * After adding two non-null elements to the front of a new empty list, the
+     * new size should be two, the list's head should point to the second
+     * element added, and the list's tail should point to the first element
+     * added.
+     * 
+     * @throws CouldNotAddException
+     */
+    @Test
+    @DisplayName("Add two non-null elements to front of empty list")
+    void testAddToFrontTwoElements() throws CouldNotAddException {
+        final int firstValue = 1;
+        final int secondValue = 2;
+        testObject.addToFront(firstValue);
+        testObject.addToFront(secondValue);
+        assertEquals(2, testObject.size());
+        assertNotNull(testObject.getFirst());
+        assertEquals(2, testObject.getFirst().intValue());
+        assertNotNull(testObject.getLast());
+        assertEquals(1, testObject.getLast().intValue());
+        assertNotEquals(testObject.getFirst(), testObject.getLast());
+    }
+
+    /**
+     * After adding many non-null elements to the front of a new empty list, the
+     * new size should be correct, the list's head should point to the most
+     * recent element added, and the list's tail should point to the first
+     * element added.
+     * 
+     * @throws CouldNotAddException
+     */
+    @Test
+    @DisplayName("Add many non-null elements to front of empty list")
+    void testAddToFrontManyElements() throws CouldNotAddException {
+        Random random = new Random();
+        final int reasonableMaximumSize = 1000;
+        final int listSize = random.nextInt(reasonableMaximumSize);
+        for (int i = 0; i < listSize; ++i) {
+            testObject.addToFront(i); // Autoboxing for the win!
+            assertEquals(i + 1, testObject.size());
+        }
+        assertEquals(listSize, testObject.size());
+        assertNotNull(testObject.getFirst());
+        assertEquals(listSize - 1, testObject.getFirst().intValue());
+        assertNotNull(testObject.getLast());
+        assertEquals(0, testObject.getLast().intValue());
+        assertNotEquals(testObject.getFirst(), testObject.getLast());
+    }
+
+    /**
+     * New Iterator on a new empty list should report that it does not
+     * hasNext().
+     */
+    @Test
+    @DisplayName("Iterator for empty list does not hasNext()")
+    void testIteratorEmptyList() {
+        Iterator<Integer> iterator = testObject.iterator();
+        assertFalse(iterator.hasNext());
+    }
+
+    /**
+     * New Iterator on a list of size one should report that it hasNext() and
+     * then it should return an element when next() is called. After that,
+     * hasNext() should return false, and calling next() should throw a
+     * NoSuchElementException.
+     */
+    @Test
+    @DisplayName("Iterator for list size 1 works")
+    void testIteratorListSize1() throws CouldNotAddException {
+        final int testValue = 22;
+        testObject.addToFront(testValue);
+        Iterator<Integer> iterator = testObject.iterator();
+        assertTrue(iterator.hasNext());
+        assertEquals(testValue, iterator.next().intValue());
+        assertFalse(iterator.hasNext());
+        assertThrows(NoSuchElementException.class, () -> {
+            iterator.next();
+        });
+    }
+
+    /**
+     * New Iterator on a list of some size should report that it hasNext() when
+     * it does, then it should return an element when next() is called. After
+     * the iterator has visited all the elements in the list, the hasNext()
+     * method should return false, and calling next() should throw a
+     * NoSuchElementException.
+     */
+    @Test
+    @DisplayName("Iterator for some large list works")
+    void testIteratorLargeList() throws CouldNotAddException {
+        Random random = new Random();
+        final int reasonableMaximumSize = 1000;
+        final int listSize = random.nextInt(reasonableMaximumSize);
+        for (int i = 0; i < listSize; ++i) {
+            testObject.addToFront(i); // Autoboxing for the win!
+        }
+        Iterator<Integer> iterator = testObject.iterator();
+        for (int i = 0; i < listSize; ++i) {
+            assertTrue(iterator.hasNext());
+            assertEquals(listSize - i - 1, iterator.next().intValue());
+        }
+        assertFalse(iterator.hasNext());
+        assertThrows(NoSuchElementException.class, () -> {
+            iterator.next();
+        });
+    }
+
+}

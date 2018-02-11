@@ -1,0 +1,13 @@
+package tester;
+
+public class tester {
+
+    public static void main(String[] args) {
+        for (int j = 2; j<= n+3; j++) {
+            for(int k = j; k<=n+3;k++) {
+                counter = counter +10;
+            }
+        }
+    }
+
+}

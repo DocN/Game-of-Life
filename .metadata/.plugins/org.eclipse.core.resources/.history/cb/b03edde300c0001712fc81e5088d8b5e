@@ -1,0 +1,17 @@
+package tester;
+
+public class tester {
+
+    public static void main(String[] args) {
+        int time = 100;
+        int n = 50;
+        for (int i = 1; i <= n; i++) {
+            //time = time + 8;
+            for (int k = 6; k <= (i + 1); k++) {
+                time = time + (6 * k);
+            }
+        }
+        System.out.println(time);
+    }
+
+}
